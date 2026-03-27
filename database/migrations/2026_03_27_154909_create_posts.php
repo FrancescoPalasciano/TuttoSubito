@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id()->primary();
+            $table->integer('user_id')->unique()->foreignId()->constrained('users')->onDelete('cascade');
+            $table->string("category");
+            $table->string('title');
+            $table->string('description');
+            $table->timestamps('published_at');
+            $table->timestamps('sold_at')->nullable();
+            $table->softDeletes();
         });
     }
 
